@@ -27,13 +27,13 @@
 > 1. **브랜치명은 아래의 형식으로 작성합니다. (feature/이름-기능제목#이슈번호)**
 >    - 팀원 sheepyis의 브랜치명: `feature/sheepyis-login#1`
 > 
-> 2. **Feature branch -> develop branch로 merge하기 전 PR에서 reviewers 설정하여 팀원 2명 이상에게 approve 받기**
+> 2. **기능별 branch -> develop branch로 merge하기 전 PR에서 reviewers 설정
 > 
 > 3. **PR 후 팀원들에게 공지하기**
 <br>
 
 ### 🎯 Commit Convention
-> 1. **커밋 메시지의 형식은 하단의 사진과 같이 통일해 주세요.(사진에는 Feat이지만, 전부 소문자로 해주세요!)**
+> 1. **커밋 메시지의 형식은 하단의 사진과 같이 통일해 주세요.
 >
 > 2. **깃모지를 사용해 주세요.**
 > 

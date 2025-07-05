@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Colors from '../../../../styles/common/Colors';
 import Check from '../../../../assets/images/quiz/check.png';
-import RedX from '../../../../assets/images/quiz/redX.png';
+// import RedX from '../../../../assets/images/quiz/redX.png';
 
 const ItemDetailContainer = styled.div`
   width: 100%;

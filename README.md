@@ -24,10 +24,10 @@
 <br>
 
 ### 📝 Feature branch
-> 1. **브랜치명은 아래의 형식으로 작성합니다. (feature/이름-기능제목#이슈번호)**
+> 1. **브랜치명은 아래의 형식으로 작성합니다. (컨벤션 메시지/이름-기능제목#이슈번호)**
 >    - 팀원 sheepyis의 브랜치명: `feature/sheepyis-login#1`
 > 
-> 2. **기능별 branch -> develop branch로 merge하기 전 PR에서 reviewers 설정
+> 2. **기능별 branch -> develop branch로 merge하기 전 PR에서 reviewers 설정**
 > 
 > 3. **PR 후 팀원들에게 공지하기**
 <br>

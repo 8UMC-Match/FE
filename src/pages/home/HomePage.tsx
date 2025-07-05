@@ -3,14 +3,13 @@ import characterIcon from '../../assets/icons/character.svg';
 import sendIcon from '../../assets/icons/arrowup.svg';
 import styled from 'styled-components';
 import Colors from '../../styles/common/Colors';
-
+import logoIcon from '../../assets/icons/mini-logo.svg';
 const HomePage = () => {
   return (
     <HomeWrapper>
       <HeaderContainer>
         <LogoContainer>
-          LOGO
-          {/* <LogoImg src={logoIcon} alt="logo" /> */}
+          <LogoImg src={logoIcon} alt="logo" />
         </LogoContainer>
         <TooltipContainer>
           <TooltipBubble>나의 단어를 확인할 수 있어요!</TooltipBubble>
@@ -43,15 +42,15 @@ export default HomePage;
 export const HomeWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: #fff;
-  padding: 16px;
 `;
 
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1.5rem 0;
 `;
 
 export const LogoContainer = styled.div`
@@ -71,8 +70,8 @@ export const TooltipContainer = styled.div`
 `;
 
 export const MyWordButton = styled.button`
-  width: 3.1rem;
-  height: 3.1rem;
+  width: 2.5rem;
+  height: 2.5rem;
 `;
 
 export const MyWordImg = styled.img`

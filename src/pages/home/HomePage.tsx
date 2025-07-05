@@ -1,10 +1,25 @@
 import wordIcon from '../../assets/icons/word.svg';
 import characterIcon from '../../assets/icons/character.svg';
+import goldMedalIcon from '../../assets/icons/gold-medal.svg';
 import sendIcon from '../../assets/icons/arrowup.svg';
 import styled from 'styled-components';
 import Colors from '../../styles/common/Colors';
 import logoIcon from '../../assets/icons/mini-logo.svg';
+import ProgressBar from '../../components/home/ProgressBar';
 const HomePage = () => {
+  // const [showCharacter, setShowCharacter] = useState(false);
+
+  // useEffect(() => {
+  //   const hasSeen = localStorage.getItem('hasSeenCharacter');
+
+  //   if (!hasSeen) {
+  //     setShowCharacter(true);
+  //     localStorage.setItem('hasSeenCharacter', 'true');
+  //   }
+  // }, []);
+
+  const showCharacter = false;
+
   return (
     <HomeWrapper>
       <HeaderContainer>
@@ -19,11 +34,29 @@ const HomePage = () => {
         </TooltipContainer>
       </HeaderContainer>
       <BodyContainer>
-        <HelloBubble>안녕하세요! 오늘도 같이 단어를 알아볼까요?</HelloBubble>
-        <CharacterWrapper>
-          <ShadowEllipse />
-          <CharacterImg src={characterIcon} alt="character" />
-        </CharacterWrapper>
+        <HelloBubble>
+          안녕하세요! 오늘도 같이 단어를 <br />
+          알아볼까요?
+        </HelloBubble>
+        {showCharacter ? (
+          <CharacterWrapper>
+            <ShadowEllipse />
+            <CharacterImg src={characterIcon} alt="character" />
+          </CharacterWrapper>
+        ) : (
+          <BadgeContainer>
+            <MedalContainer>
+              <MedalImg src={goldMedalIcon} alt="gold-medal" />
+            </MedalContainer>
+            <MedalShadow />
+            <BadgeTextContainer>
+              <ProgressBarContainer>
+                <ProgressBar progress={0.5} />
+              </ProgressBarContainer>
+              <BadgeText>다음 뱃지까지 얼마 안 남았어요!</BadgeText>
+            </BadgeTextContainer>
+          </BadgeContainer>
+        )}
       </BodyContainer>
       <ChatContainer>
         <ChatInputWrapper>
@@ -215,4 +248,48 @@ export const SendButton = styled.button`
 export const SendButtonImg = styled.img`
   width: 1.8rem;
   height: 1.6rem;
+`;
+
+export const BadgeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const MedalContainer = styled.div`
+  width: 15rem;
+  height: 17rem;
+`;
+
+export const MedalImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+export const MedalShadow = styled.div`
+  width: 17rem; /* 170px */
+  height: 2.6rem; /* 26px */
+  background-color: ${Colors.gray100};
+  border-radius: 50%;
+  filter: blur(4px);
+`;
+
+export const BadgeTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+`;
+export const ProgressBarContainer = styled.div`
+  width: 23.4rem;
+  height: 1.5rem;
+`;
+
+export const BadgeText = styled.div`
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 2rem;
+  color: ${Colors.gray300};
 `;

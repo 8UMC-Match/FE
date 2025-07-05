@@ -1,10 +1,16 @@
-export interface LoginResponse {
-  data: {
-    accessToken: string;
-  };
-}
+import type { CommonResponse } from '../common/common.types';
 
 export interface LoginRequest {
   email: string;
   password: string;
 }
+
+export interface LoginData {
+  accessToken: string;
+  userId: number;
+  username: string;
+  role: 'USER';
+  expirationTime: number;
+}
+
+export type LoginResponse = CommonResponse<LoginData>;

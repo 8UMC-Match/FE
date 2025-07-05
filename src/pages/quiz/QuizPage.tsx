@@ -1,5 +1,11 @@
+import QuizForm from '../../components/quiz/qna/QuizForm';
+
 const QuizPage = () => {
-  return <div>QuizPage</div>;
+  return (
+    <>
+      <QuizForm />
+    </>
+  );
 };
 
 export default QuizPage;

@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import WordCard, { type WordCardProps } from '../../components/word/WordCard';
+import WordCard from '../../components/word/WordCard';
 import { useParams } from 'react-router-dom';
 import AddCard from '../../components/word/AddCard';
 import Colors from '../../styles/common/Colors';
 import ProfileImg from '../../assets/icons/profile-image.png';
 
+//상태 관리용
+export interface WordData {
+  word: string;
+  meaning: string;
+}
+
 export const WordPage = () => {
   const { wordListId } = useParams<{ wordListId: string }>();
-  const [words, setWords] = useState<WordCardProps[]>([]);
+  const [words, setWords] = useState<WordData[]>([]);
   const [selectedCard, setSelectedCard] = useState<number[]>([]);
 
   useEffect(() => {
@@ -53,21 +59,24 @@ export const WordPage = () => {
 
       <AddCard onClick={() => console.log('단어 추가')} />
 
-      <Subtitle>단어를 모아봤어요!</Subtitle>
+      <WordSection>
+        <Subtitle>단어를 모아봤어요!</Subtitle>
 
-      <Grid>
-        {words.map((item, idx) => (
-          <WordCard
-            key={idx}
-            word={item.word}
-            meaning={item.meaning}
-            selected={selectedCard.includes(idx)}
-            onToggle={() => toggleSelection(idx)}
-          />
-        ))}
-      </Grid>
-
-      <Button>단어장에 추가하기</Button>
+        <Grid>
+          {words.map((item, idx) => (
+            <WordCard
+              key={idx}
+              word={item.word}
+              meaning={item.meaning}
+              selected={selectedCard.includes(idx)}
+              onToggle={() => toggleSelection(idx)}
+            />
+          ))}
+        </Grid>
+      </WordSection>
+      <ButtonSection>
+        <Button>단어장에 추가하기</Button>
+      </ButtonSection>
     </PageContainer>
   );
 };
@@ -111,6 +120,9 @@ const Text = styled.p`
   letter-spacing: -0.04em;
 `;
 // ------------------------------------------------------
+const WordSection = styled.p`
+  margin-top: 49px;
+`;
 
 const Subtitle = styled.p`
   font-weight: 600;
@@ -123,6 +135,22 @@ const Grid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 12px; // 카드 간 간격
   margin-top: 16px;
+`;
+
+const ButtonSection = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: 90px;
+  background-color: ${Colors.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  box-sizing: border-box;
 `;
 
 const Button = styled.button`

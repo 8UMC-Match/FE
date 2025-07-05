@@ -33,22 +33,25 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const mutation = usePostMutation<LoginRequest, LoginResponse>('/users', {
-    onSuccess: (data) => {
-      console.log(data);
-      alert('로그인 되었습니다.');
-      localStorage.setItem('accessToken', data.data.accessToken);
-      navigate('/');
+  const mutation = usePostMutation<LoginRequest, LoginResponse>(
+    '/auths/login',
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        alert('로그인 되었습니다.');
+        localStorage.setItem('accessToken', data.data.accessToken);
+        navigate('/');
+      },
+      onError: (error) => {
+        console.error(error);
+        alert('이메일 또는 비밀번호를 다시 확인해주세요.');
+      },
     },
-    onError: (error) => {
-      console.error(error);
-      alert('이메일 또는 비밀번호를 다시 확인해주세요.');
-    },
-  });
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    mutation.mutate({ email, password });
+    mutation.mutate({ username: email, password: password });
   };
 
   return (

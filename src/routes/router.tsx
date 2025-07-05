@@ -4,6 +4,8 @@ import HomePage from '../pages/home/HomePage';
 import NotFoundPage from '../pages/notFound/NotFoundPage';
 import LoginPage from '../pages/login/LoginPage';
 import QuizPage from '../pages/quiz/QuizPage';
+import QnaPage from '../pages/quiz/QnaPage';
+import ResultPage from '../pages/quiz/ResultPage';
 import PublicRoute from './PublicRoutes';
 import ProtectedRoute from './ProtectedRoutes';
 import OnboardingPage from '../pages/onboarding/OnboardingPage';
@@ -32,6 +34,8 @@ const router = createBrowserRouter([
             children: [{ path: ':id', element: <ChatDetailPage /> }],
           },
           { path: 'quiz', element: <QuizPage /> },
+          { path: 'qna', element: <QnaPage /> },
+          { path: 'result', element: <ResultPage /> },
           { path: 'word', element: <WordPage /> },
         ],
       },

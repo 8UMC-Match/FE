@@ -11,7 +11,16 @@ export function usePostMutation<TVariables = unknown, TResponse = unknown>(
 ) {
   return useMutation<TResponse, Error, TVariables>({
     mutationFn: async (variables) => {
-      const res = await API.post<TResponse>(endpoint, variables);
+      const token = localStorage.getItem('accessToken');
+
+      const res = await API.post<TResponse>(endpoint, variables, {
+        headers: token
+          ? {
+              Authorization: `Bearer ${token}`,
+            }
+          : undefined,
+      });
+
       return res.data;
     },
     ...options,

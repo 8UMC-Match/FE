@@ -1,28 +1,40 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import WordCard from '../../components/word/WordCard';
+import WordCard, { type WordCardProps } from '../../components/word/WordCard';
 import { useParams } from 'react-router-dom';
 import AddCard from '../../components/word/AddCard';
 import Colors from '../../styles/common/Colors';
 import ProfileImg from '../../assets/icons/profile-image.png';
-
-//상태 관리용
-export interface WordData {
-  word: string;
-  meaning: string;
-}
+import AddWordModal from '../../components/word/AddWordModal';
+import axios from 'axios';
 
 export const WordPage = () => {
-  const { wordListId } = useParams<{ wordListId: string }>();
-  const [words, setWords] = useState<WordData[]>([]);
-  const [selectedCard, setSelectedCard] = useState<number[]>([]);
+  const { wordListId } = useParams<{ wordListId: string }>(); // 단어 리스트 받아오기
+  const [words, setWords] = useState<WordCardProps[]>([]); // 받아온 단어 관리
+  const [selectedCard, setSelectedCard] = useState<number[]>([]); // 단어 카드 선택 관리
+  const [isModalOpen, setIsModalOpen] = useState(false); // 단어 추가 모달 관리
 
   useEffect(() => {
     // 실제 API 연동 부분
     setWords([
-      { word: '금일', meaning: "'오늘을 한자로 표현한 말" },
-      { word: '글피', meaning: '오늘로부터 사흘 뒤의 날' },
-      { word: '윤슬', meaning: '물결 위 햇빛 반짝임' },
+      {
+        word: '금일',
+        meaning: "'오늘을 한자로 표현한 말",
+        selected: false,
+        onToggle: () => {},
+      },
+      {
+        word: '글피',
+        meaning: '오늘로부터 사흘 뒤의 날',
+        selected: false,
+        onToggle: () => {},
+      },
+      {
+        word: '윤슬',
+        meaning: '물결 위 햇빛 반짝임',
+        selected: false,
+        onToggle: () => {},
+      },
     ]);
   }, [wordListId]);
 
@@ -30,6 +42,30 @@ export const WordPage = () => {
     setSelectedCard((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
     );
+  };
+
+  const handleAddWord = (newWord: string) => {
+    setWords((prev) => [
+      ...prev,
+      {
+        word: newWord,
+        meaning: '의미를 입력하세요', // 서버에서 받아온 데이터 작성
+        selected: false,
+        onToggle: () => {}, // 나중에 교체
+      },
+    ]);
+  };
+
+  const handleSubmitSelectedWords = async () => {
+    const selectedWords = words.filter((word) => word.selected);
+
+    try {
+      await axios.post('/api/words', { words: selectedWords }); // 예: POST 요청
+      alert('선택된 단어들이 추가되었습니다!');
+    } catch (error) {
+      console.error('단어 추가 실패:', error);
+      alert('단어 추가 중 오류가 발생했습니다.');
+    }
   };
 
   return (
@@ -57,7 +93,13 @@ export const WordPage = () => {
         </Text>
       </TextSection>
 
-      <AddCard onClick={() => console.log('단어 추가')} />
+      <AddCard onClick={() => setIsModalOpen(true)} />
+      {isModalOpen && (
+        <AddWordModal
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleAddWord}
+        />
+      )}
 
       <WordSection>
         <Subtitle>단어를 모아봤어요!</Subtitle>
@@ -75,7 +117,7 @@ export const WordPage = () => {
         </Grid>
       </WordSection>
       <ButtonSection>
-        <Button>단어장에 추가하기</Button>
+        <Button onClick={handleSubmitSelectedWords}>단어장에 추가하기</Button>
       </ButtonSection>
     </PageContainer>
   );
@@ -133,7 +175,7 @@ const Subtitle = styled.p`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px; // 카드 간 간격
+  gap: 12px;
   margin-top: 16px;
 `;
 

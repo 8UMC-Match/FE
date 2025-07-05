@@ -2,9 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 import colors from './colors';
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
     :root {
         --vh: 100%;
-        --font-family: 'Pretendard';
+        --font-family: 'Inter', sans-serif;
     }
     
 
@@ -25,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
         border: 0;
         padding: 0;
         vertical-align: baseline;
-        font-family: 'Pretendard';
+        font-family: 'Inter', sans-serif;
 
     }
     article, aside, details, figcaption, figure,

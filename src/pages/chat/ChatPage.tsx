@@ -4,7 +4,9 @@ import aiProfile from '../../assets/icons/ai-profile-1.svg';
 import ChatBubble from '../../components/ChatBubble';
 import arrowLeftIcon from '../../assets/images/header/arrowLeft.png';
 import wordIcon from '../../assets/icons/word.svg';
+import { useNavigate } from 'react-router-dom';
 const ChatPage = () => {
+  const navigate = useNavigate();
   const question: string = `21세기의 문명은, 역사상 유례없는 속도로 발전하고 있다.
 우리는 더 이상 기술이 “도구”로 머무르는 시대에 살지 않는다.
 AI는 우리와 함께 일하고, 대화하며, 때로는 창작까지도 한다.
@@ -20,7 +22,7 @@ AI는 우리와 함께 일하고, 대화하며, 때로는 창작까지도 한다
   return (
     <ChatLayout>
       <HeaderContainer>
-        <GoBackButton>
+        <GoBackButton onClick={() => navigate(-1)}>
           <GoBackButtonImg src={arrowLeftIcon} alt="arrowLeftIcon" />
         </GoBackButton>
         <MyWordButton>
@@ -44,8 +46,8 @@ AI는 우리와 함께 일하고, 대화하며, 때로는 창작까지도 한다
         </ChatWrapper>
       </ScrollContainer>
       <ButtonsContainer>
-        <Button onClick={() => {}}>단어 보기</Button>
-        <Button onClick={() => {}}>퀴즈 시작하기</Button>
+        <Button onClick={() => navigate('/word')}>단어 보기</Button>
+        <Button onClick={() => navigate('/quiz')}>퀴즈 시작하기</Button>
       </ButtonsContainer>
     </ChatLayout>
   );
@@ -55,9 +57,10 @@ export default ChatPage;
 
 export const HeaderContainer = styled.div`
   display: flex;
+  height: 4.7rem;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0;
+  margin: 1rem 0;
 `;
 
 export const GoBackButton = styled.button`

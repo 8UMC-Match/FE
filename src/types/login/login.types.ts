@@ -1,7 +1,7 @@
 import type { CommonResponse } from '../common/common.types';
 
 export interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
 }
 

@@ -4,21 +4,12 @@ import aiProfile from '../../assets/icons/ai-profile-1.svg';
 import ChatBubble from '../../components/ChatBubble';
 import arrowLeftIcon from '../../assets/images/header/arrowLeft.png';
 import wordIcon from '../../assets/icons/word.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 const ChatPage = () => {
   const navigate = useNavigate();
-  const question: string = `21세기의 문명은, 역사상 유례없는 속도로 발전하고 있다.
-우리는 더 이상 기술이 “도구”로 머무르는 시대에 살지 않는다.
-AI는 우리와 함께 일하고, 대화하며, 때로는 창작까지도 한다.
+  const location = useLocation();
+  const { questionId, userMessage, aiResponse } = location.state || {};
 
-이런 세상에서 인간은 어떤 의미를 가질까?
-기계가 코드를 짜고, 음악을 만들고, 그림을 그리는 시대에
-"인간만의 고유한 가치"는 무엇일까?
-
-이 질문에 답을 찾기 위해 우리는 기술보다 더 깊은 철학이 필요하다.
-기계는 학습하지만, 경험하지는 않는다.
-기계는 예측하지만, 고민하지는 않는다.
-`;
   return (
     <ChatLayout>
       <HeaderContainer>
@@ -32,13 +23,13 @@ AI는 우리와 함께 일하고, 대화하며, 때로는 창작까지도 한다
       <ScrollContainer>
         <ChatWrapper>
           <RequestContainer>
-            <RequestTextContainer>{question}</RequestTextContainer>
+            <RequestTextContainer>{userMessage}</RequestTextContainer>
           </RequestContainer>
 
           <ResponseContainer>
             <AIProfileImg src={aiProfile} alt="ai-profile" />
             <ChatBubble
-              text={question}
+              text={aiResponse}
               backgroundColor={Colors.orange400}
               fontColor={Colors.white}
             />
@@ -46,8 +37,12 @@ AI는 우리와 함께 일하고, 대화하며, 때로는 창작까지도 한다
         </ChatWrapper>
       </ScrollContainer>
       <ButtonsContainer>
-        <Button onClick={() => navigate('/word')}>단어 보기</Button>
-        <Button onClick={() => navigate('/quiz')}>퀴즈 시작하기</Button>
+        <Button onClick={() => navigate('/word', { state: { questionId } })}>
+          단어 보기
+        </Button>
+        <Button onClick={() => navigate('/quiz', { state: { questionId } })}>
+          퀴즈 시작하기
+        </Button>
       </ButtonsContainer>
     </ChatLayout>
   );

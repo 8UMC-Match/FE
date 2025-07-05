@@ -7,6 +7,9 @@ import Colors from '../../styles/common/Colors';
 import logoIcon from '../../assets/icons/mini-logo.svg';
 import ProgressBar from '../../components/home/ProgressBar';
 import { useNavigate } from 'react-router-dom';
+import { usePostMutation } from '../../hooks/usePostMutation';
+import type { ChatRequest, ChatResponse } from '../../types/chat/chat';
+import { useState } from 'react';
 const HomePage = () => {
   // const [showCharacter, setShowCharacter] = useState(false);
 
@@ -18,13 +21,31 @@ const HomePage = () => {
   //     localStorage.setItem('hasSeenCharacter', 'true');
   //   }
   // }, []);
+  const [inputValue, setInputValue] = useState('');
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
 
   const showCharacter = false;
 
   const navigate = useNavigate();
 
+  const mutations = usePostMutation<ChatRequest, ChatResponse>('/asks', {
+    onSuccess: (data) => {
+      navigate('/chat', {
+        state: {
+          questionId: data.data.questionId,
+          userMessage: inputValue,
+          aiResponse: data.data.content,
+        },
+      });
+    },
+  });
+
   const handleSendClick = () => {
-    navigate('/chat');
+    mutations.mutate({
+      question: inputValue,
+    });
   };
 
   return (
@@ -71,7 +92,7 @@ const HomePage = () => {
       </BodyContainer>
       <ChatContainer>
         <ChatInputWrapper>
-          <ChatInput />
+          <ChatInput value={inputValue} onChange={handleInputChange} />
           <SendButton onClick={handleSendClick}>
             <SendButtonImg src={sendIcon} alt="send" />
           </SendButton>

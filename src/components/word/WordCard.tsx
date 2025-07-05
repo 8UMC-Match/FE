@@ -9,18 +9,27 @@ export interface WordCardProps {
   meaning: string;
   selected: boolean;
   onToggle: () => void;
+  readonly?: boolean;
 }
 
-const WordCard = ({ word, meaning, selected, onToggle }: WordCardProps) => {
+const WordCard = ({
+  word,
+  meaning,
+  selected,
+  onToggle,
+  readonly = false,
+}: WordCardProps) => {
   return (
-    <Card onClick={onToggle} selected={selected}>
-      <TopRightIcon onClick={onToggle}>
-        <CheckIcon
-          src={selected ? SelectedTrueCircle : SelectedFalseCircle}
-          alt="check"
-          selected={selected}
-        />
-      </TopRightIcon>
+    <Card selected={selected} onClick={!readonly ? onToggle : undefined}>
+      {!readonly && (
+        <TopRightIcon onClick={onToggle}>
+          <CheckIcon
+            src={selected ? SelectedTrueCircle : SelectedFalseCircle}
+            alt="check"
+            selected={selected}
+          />
+        </TopRightIcon>
+      )}
       <Word selected={selected}>{word}</Word>
       <Meaning selected={selected}>{meaning}</Meaning>
     </Card>

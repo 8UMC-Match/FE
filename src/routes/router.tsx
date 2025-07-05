@@ -12,6 +12,7 @@ import OnboardingPage from '../pages/onboarding/OnboardingPage';
 import ChatPage from '../pages/chat/ChatPage';
 import ChatDetailPage from '../pages/chat/ChatDetailPage';
 import WordPage from '../pages/word/WordPage';
+import AllWordsPage from '../pages/word/AllWordsPage';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
           { path: 'qna', element: <QnaPage /> },
           { path: 'result', element: <ResultPage /> },
           { path: 'word', element: <WordPage /> },
+          { path: 'allwords', element: <AllWordsPage /> },
         ],
       },
     ],

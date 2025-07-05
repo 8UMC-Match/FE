@@ -8,12 +8,6 @@ import ProfileImg from '../../assets/icons/profile-image.png';
 import AddWordModal from '../../components/word/AddWordModal';
 import axios from 'axios';
 
-//상태 관리용
-export interface WordData {
-  word: string;
-  meaning: string;
-}
-
 export const WordPage = () => {
   const { wordListId } = useParams<{ wordListId: string }>(); // 단어 리스트 받아오기
   const [words, setWords] = useState<WordCardProps[]>([]); // 받아온 단어 관리

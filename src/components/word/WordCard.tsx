@@ -45,7 +45,7 @@ const Card = styled.div<{ selected: boolean }>`
 `;
 
 const Word = styled.p<{ selected: boolean }>`
-  width: 29px;
+  width: 125px;
   height: 19px;
   font-weight: 600;
   font-size: 16px;

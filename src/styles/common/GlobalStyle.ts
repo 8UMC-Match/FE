@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import colors from './colors';
+import Colors from './Colors';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -42,7 +42,7 @@ const GlobalStyle = createGlobalStyle`
         touch-action: manipulation;
         background-size: 100%;
         background-repeat: repeat;
-        background-color: ${colors.white};
+        background-color: ${Colors.white};
         display: flex;
         justify-content: center;
     }

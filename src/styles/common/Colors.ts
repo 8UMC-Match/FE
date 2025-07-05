@@ -1,4 +1,4 @@
-const colors = {
+const Colors = {
   orange900: '#DE4E02',
   orange800: '#E86802',
   orange700: '#EE7802',
@@ -24,4 +24,4 @@ const colors = {
   black: '#000000',
 };
 
-export default colors;
+export default Colors;

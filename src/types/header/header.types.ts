@@ -1,8 +1,8 @@
 export interface HeaderProps {
-    text: string;
+  text: string;
 }
 
 export interface HeaderRoute {
-    path: string;
-    text: string;
+  path: string;
+  text: string;
 }

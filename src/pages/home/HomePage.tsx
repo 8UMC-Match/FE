@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Colors from '../../styles/common/Colors';
 import logoIcon from '../../assets/icons/mini-logo.svg';
 import ProgressBar from '../../components/home/ProgressBar';
+import { useNavigate } from 'react-router-dom';
 const HomePage = () => {
   // const [showCharacter, setShowCharacter] = useState(false);
 
@@ -20,6 +21,12 @@ const HomePage = () => {
 
   const showCharacter = false;
 
+  const navigate = useNavigate();
+
+  const handleSendClick = () => {
+    navigate('/chat');
+  };
+
   return (
     <HomeWrapper>
       <HeaderContainer>
@@ -28,7 +35,11 @@ const HomePage = () => {
         </LogoContainer>
         <TooltipContainer>
           <TooltipBubble>나의 단어를 확인할 수 있어요!</TooltipBubble>
-          <MyWordButton>
+          <MyWordButton
+            onClick={() => {
+              navigate('/word');
+            }}
+          >
             <MyWordImg src={wordIcon} alt="나의 단어" />
           </MyWordButton>
         </TooltipContainer>
@@ -61,7 +72,7 @@ const HomePage = () => {
       <ChatContainer>
         <ChatInputWrapper>
           <ChatInput />
-          <SendButton>
+          <SendButton onClick={handleSendClick}>
             <SendButtonImg src={sendIcon} alt="send" />
           </SendButton>
         </ChatInputWrapper>
@@ -81,9 +92,10 @@ export const HomeWrapper = styled.div`
 
 export const HeaderContainer = styled.div`
   display: flex;
+  height: 4.7rem;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0;
+  margin: 1rem 0;
 `;
 
 export const LogoContainer = styled.div`

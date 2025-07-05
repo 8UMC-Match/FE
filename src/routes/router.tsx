@@ -10,7 +10,6 @@ import PublicRoute from './PublicRoutes';
 import ProtectedRoute from './ProtectedRoutes';
 import OnboardingPage from '../pages/onboarding/OnboardingPage';
 import ChatPage from '../pages/chat/ChatPage';
-import ChatDetailPage from '../pages/chat/ChatDetailPage';
 import WordPage from '../pages/word/WordPage';
 import AllWordsPage from '../pages/word/AllWordsPage';
 
@@ -29,11 +28,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <HomePage /> },
           { path: 'onboarding', element: <OnboardingPage /> },
-          {
-            path: 'chat',
-            element: <ChatPage />,
-            children: [{ path: ':id', element: <ChatDetailPage /> }],
-          },
+          { path: 'chat', element: <ChatPage /> },
           { path: 'quiz', element: <QuizPage /> },
           { path: 'qna', element: <QnaPage /> },
           { path: 'result', element: <ResultPage /> },

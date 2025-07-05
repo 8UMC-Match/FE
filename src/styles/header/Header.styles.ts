@@ -3,7 +3,8 @@ import Colors from '../common/Colors';
 
 export const HeaderContainer = styled.div`
   width: 60%;
-  padding: 1rem 0;
+  height: 4.7rem;
+  margin: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

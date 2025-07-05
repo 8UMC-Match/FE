@@ -18,18 +18,14 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
-        index: true,
-        element: <HomePage />,
-      },
-      {
         element: <PublicRoute />,
         children: [{ path: 'login', element: <LoginPage /> }],
       },
       {
         element: <ProtectedRoute />,
         children: [
+          { index: true, element: <HomePage /> },
           { path: 'onboarding', element: <OnboardingPage /> },
-          { path: 'home', element: <HomePage /> },
           {
             path: 'chat',
             element: <ChatPage />,

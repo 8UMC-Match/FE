@@ -126,7 +126,7 @@ const GlobalStyle = createGlobalStyle`
     .pageContainer {
         width: 425px;
         height: 100vh;
-        background: pink;
+        padding: 0 2rem;
     }
     
     @media screen and (max-width: 424px) {

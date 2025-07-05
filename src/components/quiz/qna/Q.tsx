@@ -1,5 +1,5 @@
-import Colors from '../../styles/common/Colors';
-import * as QS from '../../styles/quiz/Quiz.styles';
+import Colors from '../../../styles/common/Colors';
+import * as QS from '../../../styles/quiz/Quiz.styles';
 
 interface QProps {
   index: number;

@@ -8,7 +8,7 @@ export const QContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  margin: 1.2rem 0 13.1rem;
+  margin: 6.3rem 0 13.1rem;
 `;
 
 export const QP = styled.p<QPProps>`

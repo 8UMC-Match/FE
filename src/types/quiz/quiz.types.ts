@@ -18,11 +18,11 @@ export interface ItemAProps {
   item: ItemA;
 }
 
-export interface QuizItem {
+export interface QnaItem {
   userId: number;
   id: number;
   title: string;
   completed: boolean;
 }
 
-export type QuizList = QuizItem[];
+export type QnaList = QnaItem[];

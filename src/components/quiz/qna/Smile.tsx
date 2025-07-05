@@ -1,4 +1,4 @@
-import * as QS from '../../styles/quiz/Quiz.styles';
+import * as QS from '../../../styles/quiz/Quiz.styles';
 import SmileIcon from '../../assets/images/quiz/smileIcon.png';
 import SmileChat from '../../assets/images/quiz/smileChat.png';
 

@@ -1,6 +1,6 @@
-import * as QS from '../../styles/quiz/Quiz.styles';
+import * as QS from '../../../styles/quiz/Quiz.styles';
 
-const QuizButton = () => {
+const QnaButton = () => {
   return (
     <>
       <QS.QuizButtonContainer>
@@ -10,4 +10,4 @@ const QuizButton = () => {
   );
 };
 
-export default QuizButton;
+export default QnaButton;

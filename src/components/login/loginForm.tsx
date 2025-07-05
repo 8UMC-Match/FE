@@ -3,6 +3,10 @@ import { useState } from 'react';
 import LoginInput from './loginInput';
 import { usePostMutation } from '../../hooks/usePostMutation';
 import { useNavigate } from 'react-router-dom';
+import type {
+  LoginRequest,
+  LoginResponse,
+} from '../../types/login/login.types';
 
 const LoginFormContainer = styled.form`
   width: 100%;
@@ -27,16 +31,17 @@ const SubmitButton = styled.button`
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const naviage = useNavigate();
+  const navigate = useNavigate();
 
-  const mutation = usePostMutation('/users', {
+  const mutation = usePostMutation<LoginRequest, LoginResponse>('/users', {
     onSuccess: (data) => {
       console.log(data);
       alert('로그인 되었습니다.');
-      naviage('/');
+      localStorage.setItem('accessToken', data.data.accessToken);
+      navigate('/');
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
       alert('이메일 또는 비밀번호를 다시 확인해주세요.');
     },
   });

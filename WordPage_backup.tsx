@@ -142,9 +142,6 @@ const Button = styled.button`
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
-  &:active {
-    background-color: ${Colors.orange100};
-  }
 `;
 
 export default WordPage;

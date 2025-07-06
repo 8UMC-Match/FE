@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Colors from '../../../../styles/common/Colors';
 import ResultChart from './ResultChart';
+import type { QuizResultProps } from '../../../../types/quiz/quiz.types';
 
 const ResultFormP = styled.p`
   font-size: 1.7rem;
@@ -15,12 +16,12 @@ const ResultChartContainer = styled.div`
   margin-top: 2.8rem;
 `;
 
-const QuizResult = () => {
+const QuizResult = ({ correctCount, totalCount }: QuizResultProps) => {
   return (
     <>
       <ResultFormP>학습 결과</ResultFormP>
       <ResultChartContainer>
-        <ResultChart />
+        <ResultChart correctCount={correctCount} totalCount={totalCount} />
       </ResultChartContainer>
     </>
   );

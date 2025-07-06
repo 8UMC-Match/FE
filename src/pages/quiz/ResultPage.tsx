@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Colors from '../../styles/common/Colors';
 import ResultIcon from '../../assets/images/quiz/resultIcon.png';
 import ResultForm from '../../components/quiz/result/ResultForm';
+import { useNavigate } from 'react-router-dom';
 
 const ResultContainer = styled.div`
   width: 100%;
@@ -43,8 +44,6 @@ const ResultFormButtonContainer = styled.div`
   width: 100%;
   padding: 3rem 2rem;
   background: ${Colors.white};
-  box-shadow: 0 0 0.8rem 0 #cccccc40;
-  border-radius: 2rem 2rem 0 0;
 `;
 
 const ResultFormButton = styled.button`
@@ -59,6 +58,12 @@ const ResultFormButton = styled.button`
 `;
 
 const ResultPage = () => {
+  const navigate = useNavigate();
+
+  const handleHome = () => {
+    navigate('/');
+  };
+
   return (
     <ResultContainer className="pageContainer">
       <ResultTitleContainer>
@@ -71,7 +76,7 @@ const ResultPage = () => {
       <ResultForm />
 
       <ResultFormButtonContainer>
-        <ResultFormButton>확인</ResultFormButton>
+        <ResultFormButton onClick={handleHome}>확인</ResultFormButton>
       </ResultFormButtonContainer>
     </ResultContainer>
   );

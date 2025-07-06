@@ -4,6 +4,11 @@ export interface QPProps {
   color?: string;
 }
 
+export interface ListAProps {
+  selectedId: number | null;
+  onSelect: (choice: number, selectedId: number) => void;
+}
+
 export interface ItemAContainerProps {
   clicked: boolean;
 }
@@ -19,10 +24,41 @@ export interface ItemAProps {
 }
 
 export interface QnaItem {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
+  quizId: number;
+  content: string;
+  quizNumber: number;
+  totalCount: number;
 }
 
-export type QnaList = QnaItem[];
+export interface QuizResultItem {
+  content: string;
+  correct: number;
+  choice: number;
+  isCorrect: boolean;
+}
+
+export interface QuizDetailProps {
+  results: QuizResultItem[];
+}
+
+export interface DetailResultProps {
+  results: QuizResultItem[];
+}
+
+export interface DetailResultItemProps {
+  result: QuizResultItem;
+  index: number;
+}
+
+export interface QuizResultResponse {
+  totalCount: number;
+  correctCount: number;
+  results: QuizResultItem[];
+}
+
+export interface QuizResultProps {
+  correctCount: number;
+  totalCount: number;
+}
+
+export type QnaResponse = QnaItem[];

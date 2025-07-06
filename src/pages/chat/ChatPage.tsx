@@ -37,7 +37,11 @@ const ChatPage = () => {
         </ChatWrapper>
       </ScrollContainer>
       <ButtonsContainer>
-        <Button onClick={() => navigate('/word', { state: { questionId } })}>
+        <Button
+          onClick={() =>
+            navigate('/word', { state: { questionId, userMessage } })
+          }
+        >
           단어 보기
         </Button>
         <Button onClick={() => navigate('/quiz', { state: { questionId } })}>

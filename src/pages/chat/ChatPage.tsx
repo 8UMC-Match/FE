@@ -16,7 +16,7 @@ const ChatPage = () => {
         <GoBackButton onClick={() => navigate(-1)}>
           <GoBackButtonImg src={arrowLeftIcon} alt="arrowLeftIcon" />
         </GoBackButton>
-        <MyWordButton>
+        <MyWordButton onClick={() => navigate('/word')}>
           <MyWordImg src={wordIcon} alt="wordIcon" />
         </MyWordButton>
       </HeaderContainer>

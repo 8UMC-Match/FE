@@ -5,7 +5,7 @@
 |                              Frontend                              |                              Frontend                               |                              Frontend                               |
 | :----------------------------------------------------------------: | :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
 | <img style="width: 150px;" src="https://github.com/minjuik.png" /> | <img style="width: 150px;" src="https://github.com/jinj00oo.png" /> | <img style="width: 150px;" src="https://github.com/sheepyis.png" /> |
-|                [김민주](https://github.com/minjuik)                |                [박진주](https://github.com/jinj00oo)                |                [최민주](https://github.com/sheepyis)                |
+|                [김민주](https://github.com/minjuik)                |                [박진주](https://github.com/jinj00oo)                |                [양인서](https://github.com/sheepyis)                |
 
 </div>
 <br />

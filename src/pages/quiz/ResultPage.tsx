@@ -44,8 +44,6 @@ const ResultFormButtonContainer = styled.div`
   width: 100%;
   padding: 3rem 2rem;
   background: ${Colors.white};
-  box-shadow: 0 0 0.8rem 0 #cccccc40;
-  border-radius: 2rem 2rem 0 0;
 `;
 
 const ResultFormButton = styled.button`

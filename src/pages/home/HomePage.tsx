@@ -1,6 +1,5 @@
 import wordIcon from '../../assets/icons/word.svg';
 import characterIcon from '../../assets/icons/character.svg';
-import goldMedalIcon from '../../assets/icons/gold-medal.svg';
 import sendIcon from '../../assets/icons/arrowup.svg';
 import styled from 'styled-components';
 import Colors from '../../styles/common/Colors';
@@ -9,28 +8,25 @@ import ProgressBar from '../../components/home/ProgressBar';
 import { useNavigate } from 'react-router-dom';
 import { usePostMutation } from '../../hooks/usePostMutation';
 import type { ChatRequest, ChatResponse } from '../../types/chat/chat';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useFetchQuery } from '../../hooks/useFetchQuery';
+import type { BadgeResponse } from '../../types/badge/badge';
+import {
+  badgeIconMap,
+  type BadgeType,
+} from '../../components/constants/badgeIconMap';
+
 const HomePage = () => {
-  // const [showCharacter, setShowCharacter] = useState(false);
-
-  // useEffect(() => {
-  //   const hasSeen = localStorage.getItem('hasSeenCharacter');
-
-  //   if (!hasSeen) {
-  //     setShowCharacter(true);
-  //     localStorage.setItem('hasSeenCharacter', 'true');
-  //   }
-  // }, []);
+  const [showCharacter, setShowCharacter] = useState(false);
   const [inputValue, setInputValue] = useState('');
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const showCharacter = false;
-
   const navigate = useNavigate();
 
-  const mutations = usePostMutation<ChatRequest, ChatResponse>('/asks', {
+  const chatMutations = usePostMutation<ChatRequest, ChatResponse>('/asks', {
     onSuccess: (data) => {
       navigate('/chat', {
         state: {
@@ -43,10 +39,31 @@ const HomePage = () => {
   });
 
   const handleSendClick = () => {
-    mutations.mutate({
+    chatMutations.mutate({
       question: inputValue,
     });
   };
+
+  const { data } = useFetchQuery<BadgeResponse>(
+    'users/badges',
+    '/users/badges',
+  );
+
+  const badge = data?.data.badge as BadgeType | undefined;
+
+  const badgeIcon =
+    badge && badge in badgeIconMap
+      ? badgeIconMap[badge as BadgeType]
+      : undefined;
+
+  useEffect(() => {
+    const hasSeen = localStorage.getItem('hasSeenCharacter');
+
+    if (!hasSeen) {
+      setShowCharacter(true);
+      localStorage.setItem('hasSeenCharacter', 'true');
+    }
+  }, []);
 
   return (
     <HomeWrapper>
@@ -78,12 +95,12 @@ const HomePage = () => {
         ) : (
           <BadgeContainer>
             <MedalContainer>
-              <MedalImg src={goldMedalIcon} alt="gold-medal" />
+              <MedalImg src={badgeIcon} alt={`${badge} 배지`} />
             </MedalContainer>
             <MedalShadow />
             <BadgeTextContainer>
               <ProgressBarContainer>
-                <ProgressBar progress={0.5} />
+                <ProgressBar progress={data?.data.progressRate || 0.7} />
               </ProgressBarContainer>
               <BadgeText>다음 뱃지까지 얼마 안 남았어요!</BadgeText>
             </BadgeTextContainer>

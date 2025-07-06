@@ -1,42 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import WordCard, { type WordCardProps } from '../../components/word/WordCard';
-import { useParams } from 'react-router-dom';
+import WordCard from '../../components/word/WordCard';
+import { useLocation } from 'react-router-dom';
 import AddCard from '../../components/word/AddCard';
 import Colors from '../../styles/common/Colors';
 import ProfileImg from '../../assets/icons/profile-image.png';
 import AddWordModal from '../../components/word/AddWordModal';
-import axios from 'axios';
+
+import type { WordListResponse } from '../../types/word/word';
+import { useFetchQuery } from '../../hooks/useFetchQuery';
 
 export const WordPage = () => {
-  const { wordListId } = useParams<{ wordListId: string }>(); // 단어 리스트 받아오기
-  const [words, setWords] = useState<WordCardProps[]>([]); // 받아온 단어 관리
+  //const { wordListId } = useParams<{ wordListId: string }>(); // 단어 리스트 받아오기
+  //const [words, setWords] = useState<WordCardProps[]>([]); // 받아온 단어 관리
   const [selectedCard, setSelectedCard] = useState<number[]>([]); // 단어 카드 선택 관리
   const [isModalOpen, setIsModalOpen] = useState(false); // 단어 추가 모달 관리
 
-  useEffect(() => {
-    // 실제 API 연동 부분
-    setWords([
-      {
-        word: '금일',
-        meaning: "'오늘을 한자로 표현한 말",
-        selected: false,
-        onToggle: () => {},
-      },
-      {
-        word: '글피',
-        meaning: '오늘로부터 사흘 뒤의 날',
-        selected: false,
-        onToggle: () => {},
-      },
-      {
-        word: '윤슬',
-        meaning: '물결 위 햇빛 반짝임',
-        selected: false,
-        onToggle: () => {},
-      },
-    ]);
-  }, [wordListId]);
+  // chatpage에서 id 받아오기
+  const location = useLocation();
+  const { questionId, userMessage } = location.state || {};
+
+  // apiGET
+  const { data } = useFetchQuery<WordListResponse>(
+    'vocabWords',
+    `/asks/${questionId}/vocab`,
+  );
+  const wordList = data?.data.data ?? [];
+  console.log(data);
 
   const toggleSelection = (index: number) => {
     setSelectedCard((prev) =>
@@ -44,29 +34,21 @@ export const WordPage = () => {
     );
   };
 
-  const handleAddWord = (newWord: string) => {
-    setWords((prev) => [
-      ...prev,
-      {
-        word: newWord,
-        meaning: '의미를 입력하세요', // 서버에서 받아온 데이터 작성
-        selected: false,
-        onToggle: () => {}, // 나중에 교체
-      },
-    ]);
+  //apiPOST
+
+  const handleAddWord = () => {
+    // setWords((prev) => [
+    //   ...prev,
+    //   {
+    //     word: newWord,
+    //     meaning: '의미를 입력하세요', // 서버에서 받아온 데이터 작성
+    //     selected: false,
+    //     onToggle: () => {}, // 나중에 교체
+    //   },
+    // ]);
   };
 
-  const handleSubmitSelectedWords = async () => {
-    const selectedWords = words.filter((word) => word.selected);
-
-    try {
-      await axios.post('/api/words', { words: selectedWords }); // 예: POST 요청
-      alert('선택된 단어들이 추가되었습니다!');
-    } catch (error) {
-      console.error('단어 추가 실패:', error);
-      alert('단어 추가 중 오류가 발생했습니다.');
-    }
-  };
+  const handleSubmitSelectedWords = () => {};
 
   return (
     <PageContainer>
@@ -76,21 +58,7 @@ export const WordPage = () => {
       </ProfileSection>
 
       <TextSection>
-        <Text>
-          요즘처럼 여름철이 되면 날씨가 매우 덥고 습해집니다. 기온이 높고 습도가
-          높을수록 우리 몸은 쉽게 피곤해지고, 땀이 많이 나기 때문에 탈수 증상이
-          생기기 쉬워요. 특히 햇볕이 강한 낮 시간에는 밖에 나가는 것이 힘들 수
-          있어요. 그래서 햇빛이 강한 날에는 외출을 하기 전에 꼭 선크림을 얼굴과
-          팔, 목 같은 노출된 피부에 꼼꼼히 발라야 해요. 또한 햇빛을 막아주는
-          모자나 양산을 준비해서 사용하는 것이 매우 좋아요. 그리고 더 날에는
-          땀이 많이 나기 때문에 물을 충분히 마시는 것도 중요해요. 특히 갈증이
-          생긴 후에 마시는 것보다, 갈증이 생기기 전에 미리 조금씩 자주 마시는
-          것이 더 효과적이에요. 실내에서도 너무 더우면 몸이 축 처지고 기운이
-          없을 수 있어요. 이럴 땐 선풍기나 에어컨을 적절히 사용하고, 바람이 통할
-          수 있게 창문을 열어 두는 것도 좋아요. 이렇게 날씨가 더울 때는 몸을
-          시원하게 하고, 탈수되지 않도록 조심하며, 햇빛으로부터 피부를 보호하는
-          것이 중요합니다.
-        </Text>
+        <Text>{userMessage}</Text>
       </TextSection>
 
       <AddCard onClick={() => setIsModalOpen(true)} />
@@ -105,13 +73,13 @@ export const WordPage = () => {
         <Subtitle>단어를 모아봤어요!</Subtitle>
 
         <Grid>
-          {words.map((item, idx) => (
+          {wordList.map(({ askWordId, name, description }) => (
             <WordCard
-              key={idx}
-              word={item.word}
-              meaning={item.meaning}
-              selected={selectedCard.includes(idx)}
-              onToggle={() => toggleSelection(idx)}
+              key={askWordId}
+              word={name}
+              meaning={description}
+              selected={selectedCard.includes(askWordId)}
+              onToggle={() => toggleSelection(askWordId)}
             />
           ))}
         </Grid>

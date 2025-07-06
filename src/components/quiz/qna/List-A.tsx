@@ -1,15 +1,9 @@
-import * as QS from '../../../styles/quiz/Quiz.styles';
+import type { ListAProps } from '../../../types/quiz/quiz.types';
 import ItemA from './Item-A';
 import { QuizData } from '../../../mocks/quiz/quizData';
-import { useState } from 'react';
+import * as QS from '../../../styles/quiz/Quiz.styles';
 
-const ListA = () => {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-
-  const handleClick = (id: number) => {
-    setSelectedId(id);
-  };
-
+const ListA = ({ selectedId, onSelect }: ListAProps) => {
   return (
     <QS.ListAContainer>
       {QuizData.map((item) => (
@@ -17,7 +11,7 @@ const ListA = () => {
           key={item.id}
           item={item}
           isClicked={selectedId === item.id}
-          onClick={() => handleClick(item.id)}
+          onClick={() => onSelect(item.answer, item.id)}
         />
       ))}
     </QS.ListAContainer>

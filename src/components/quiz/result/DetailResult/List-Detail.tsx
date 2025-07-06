@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ItemDetail from './Item-Detail';
+import type { QuizDetailProps } from '../../../../types/quiz/quiz.types';
 
 const ListDetailContainer = styled.div`
   width: 100%;
@@ -9,11 +10,13 @@ const ListDetailContainer = styled.div`
   margin: 1.9rem 0 1.4rem 0;
 `;
 
-const ListDetail = () => {
+const ListDetail = ({ results }: QuizDetailProps) => {
   return (
     <>
       <ListDetailContainer>
-        <ItemDetail />
+        {results.map((item, idx) => (
+          <ItemDetail key={idx} index={idx} result={item} />
+        ))}
       </ListDetailContainer>
     </>
   );

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import Colors from '../../../../styles/common/Colors';
 import Check from '../../../../assets/images/quiz/check.png';
-// import RedX from '../../../../assets/images/quiz/redX.png';
+import RedX from '../../../../assets/images/quiz/redX.png';
+import type { DetailResultItemProps } from '../../../../types/quiz/quiz.types';
 
 const ItemDetailContainer = styled.div`
   width: 100%;
@@ -14,6 +15,7 @@ const ItemDetailContainer = styled.div`
 `;
 
 const ItemDetailLeft = styled.div`
+  width: 90%;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -29,17 +31,20 @@ const ItemDetailImg = styled.img`
   height: 1.9rem;
 `;
 
-const ItemDetail = () => {
+const ItemDetail = ({ result, index }: DetailResultItemProps) => {
   return (
     <ItemDetailContainer>
       <ItemDetailLeft>
-        <ItemDetailP>질문 01</ItemDetailP>
+        <ItemDetailP>질문 {String(index + 1).padStart(2, '0')}</ItemDetailP>
         <ItemDetailP style={{ fontSize: '1.3rem', fontWeight: '500' }}>
-          햇빛이 강한 날에는 선크림을 바르는 것이 좋다.
+          {result.content}
         </ItemDetailP>
       </ItemDetailLeft>
 
-      <ItemDetailImg src={Check} alt="check" />
+      <ItemDetailImg
+        src={result.isCorrect ? Check : RedX}
+        alt={result.isCorrect ? 'correct' : 'wrong'}
+      />
     </ItemDetailContainer>
   );
 };

@@ -1,10 +1,10 @@
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Colors from '../../../../styles/common/Colors';
+import type { QuizResultProps } from '../../../../types/quiz/quiz.types';
 
-const ResultChart = () => {
-  const value = 4;
-  const total = 5;
+const ResultChart = ({ correctCount, totalCount }: QuizResultProps) => {
+  const percentage = (totalCount / correctCount) * 100;
 
   return (
     <div style={{ width: '17.8rem', height: '17.8rem', position: 'relative' }}>
@@ -18,8 +18,8 @@ const ResultChart = () => {
       </svg>
 
       <CircularProgressbar
-        value={(value / total) * 100}
-        text={`${value}/${total}`}
+        value={percentage}
+        text={`${totalCount}/${correctCount}`}
         strokeWidth={14}
         styles={buildStyles({
           pathColor: 'url(#gradientColor)',

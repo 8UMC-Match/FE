@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import Colors from '../../styles/common/Colors';
 import QuizIcon from '../../assets/images/quiz/quizIcon.png';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { usePostMutation } from '../../hooks/usePostMutation';
+import type { QnaResponse } from '../../types/quiz/quiz.types';
 
 const QuizPageContainer = styled.div`
   width: 100%;
@@ -42,9 +44,29 @@ const QuizButton = styled.button`
 
 const QuizPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { questionId } = location.state || {};
+
+  const mutation = usePostMutation<undefined, QnaResponse[]>(
+    `/asks/${questionId}/quiz`,
+    {
+      onSuccess: () => {
+        navigate('/qna', { state: { questionId } });
+      },
+      onError: (error) => {
+        console.error(error);
+        alert('퀴즈 생성 실패');
+      },
+    },
+  );
 
   const handleQna = () => {
-    navigate('/qna');
+    if (!questionId) {
+      alert('질문 ID가 없습니다.');
+      return;
+    }
+
+    mutation.mutate(undefined);
   };
 
   return (

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Colors from '../../../../styles/common/Colors';
 import ListDetail from './List-Detail';
+import type { DetailResultProps } from '../../../../types/quiz/quiz.types';
 
 const ResultFormP = styled.p`
   font-size: 1.7rem;
@@ -9,11 +10,11 @@ const ResultFormP = styled.p`
   margin-top: 4.9rem;
 `;
 
-const DetailResult = () => {
+const DetailResult = ({ results }: DetailResultProps) => {
   return (
     <>
       <ResultFormP>문제 풀이 결과</ResultFormP>
-      <ListDetail />
+      <ListDetail results={results} />
     </>
   );
 };
